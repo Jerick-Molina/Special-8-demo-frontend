@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel="stylesheet" type="text/css" href="../ClientSide/client.css">
+<link rel="stylesheet" type="text/css" href="../ClientSide/game.css">
+</head>
+<body id='gamescreen'>
+  <div id="header" class="d-flex Header-border">
+  <h1 id="headertitle" class=" Header-title">Skepto</h1>
+  </div>
+  <div id='main'>
+  <div id='signIn-content' >
+    <div class="d-flex Body-login"> 
+      <div class="d-flex Body-loginUI">
+        <ul class= "loginUI-body">
+      <li> <div  class="login-top">Username</div>
+    <input type="text" id="username" class='login-user'></li>
+      <li>
+    <div class="login-top">Room Number</div>
+    <input type="text" style="text-transform: uppercase" id='roomNumber' maxlength="4" class='login-user'></li>
+      <li><button id="loginbutton" class="login-button">Enter Lobby</button></li>
+        </ul>
+      </div>
+      </div>
+    <div class="bottom-notice"> Notice: it is recommended you play in landscape mode instead of portrait for better experiece</div>
+    <div class='bottom'></div>
+    </div>
+
+  
+  <div id='lobbyWait'class='d-flex g-WaitMessage'>
+    <h3 id='waitTitle'>Please wait until Vip starts game</h3>
+    <button id='startButton' class="d-flex g-startbutton">Start Game</button>
+  </div>
+ 
+
+  <div id='gameStart'>
+  <div id='cardBoundery'> Drop Card Here</div>
+  <div><button id="getcard">Get a card.</button></div>
+  <div id='cardshand'></img></div>
+  </div>
+
+</div>
+</body>
+
+</html>
+<script src="../ClientSide/client.js" type="text/javascript"></script>
