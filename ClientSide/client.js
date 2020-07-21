@@ -78,16 +78,16 @@ alert("Host has lost connection to room");
     case "firstplayer":
         console.log("Yours the first person to join!");
         var textDisplay = document.getElementById('waitTitle');
-        var startButton = document.getElementById('startButton');
+        
         textDisplay.innerHTML = "Wait until there's enough players to play!"
         
     break;
     case "startgamebutton":
         
-        var startButton = document.getElementById('startButton');
+       
         startButton.innerHTML = "Start Game!"
         startButton.style.display = "block"
-       
+        var startButton = document.getElementById('startButton');
     break;
     case"startgame":
     maincontent.replaceWith(cgameLobby);
