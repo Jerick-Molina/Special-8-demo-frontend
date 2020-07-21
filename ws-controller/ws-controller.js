@@ -67,22 +67,27 @@ const doesLobbyExist = (roomCode) => {
 
 
 module.exports = (ws, req) =>{
- 
+  /*  var readStream = fs.readFileSync(path.resolve(__dirname,`../ClientSide/CardImages/Blue/Blue_2.png`));
+    send(ws, {method:"newcard", data: readStream.toString('base64'), cardcolor: "Blue", cardvalue: 2}); 
+    var readStream = fs.readFileSync(path.resolve(__dirname,`../ClientSide/CardImages/Red/Red_5.png`));
+    send(ws, {method:"newcard", data: readStream.toString('base64'), cardcolor: "Red", cardvalue:5});
+    send(ws, {method:"newcard", data: readStream.toString('base64'), cardcolor: "Red", cardvalue:5});
+    send(ws, {method:"newcard", data: readStream.toString('base64'), cardcolor: "Red", cardvalue:5}); */
    ws.on('close', function closed() {
 //checks if its the host who disconnects    
     host.forEach( hostes =>{
-        if(ws == hostes.ws){
+        if(hostes.ws == ws){
+            if(hostes.roomCode == hostes.roomCode){
         var number = host.indexOf(hostes);
         
         hostes.currentPlayers.forEach(user =>{
          send(user.ws, {method:"lostconnection"})
-         console.log(`${hostes.roomCode} has disconnected`)
-         
         })
         host.splice(number, 1);
+        console.log("Host has lost connection!")
         }
+    }
     })
-    console.log(host.length);
    })
     
     
@@ -103,7 +108,7 @@ module.exports = (ws, req) =>{
                     });
                     
                     send(ws, { result: {status: `Success you are now a Host! of ${data.roomCode}`, code: data.roomCode}});
-                    console.log(host.length);
+                    
                 }
                 break;
         }
@@ -116,7 +121,7 @@ module.exports = (ws, req) =>{
             case "connectClient":  
             // Connecting to Host
             if(doesLobbyExist(data.roomCode)){
-                console.log(data);
+               
                 send(ws,{ method:"error" })
             }else  if(isUsernameTaken(data.params.username,data.roomCode)){
                     send(ws, {method: "error"});
@@ -141,10 +146,11 @@ module.exports = (ws, req) =>{
                 }
                 break;
               case "gameready":
+                  console.log("StartGame");
                 host.forEach(gameHost =>{
-                    if(data.roomCode == gameHost.roomCode){
+                    
                         send(gameHost.ws ,{method:"gameready"});
-                    }
+                    
                 })
               break;
             } 
@@ -193,13 +199,13 @@ module.exports = (ws, req) =>{
             case "startgame":
                 
             host.forEach( hostes =>{
-                if(data.roomCode == hostes.roomCode){
+                
                 hostes.currentPlayers.forEach(user =>{
                 
                      send(user.ws, {method: "startgame"})
                  
                 })
-                }
+                
             })
         
         break;
@@ -216,7 +222,67 @@ module.exports = (ws, req) =>{
                
              break;
         }
-      
+        //Client -> Host game Methods
+        switch(data.method){
+
+            case   "placedcard" : 
+
+            console.log(data.method, data.username, data.cardcolor,  data.cardId )
+            host.forEach(currectHost =>{
+            send(currectHost.ws, {method: data.method, username: data.username,cardcolor: data.cardcolor, cardId: data.cardId })
+
+            })
+
+
+            break;
+            case   "getcard" : 
+            break;
+
+            
+           
+        }
+
+        //Host -> Clients game methods
+        switch(data.method){
+
+            case   "YourTurn" :
+                host.forEach( hostes =>{
+                
+                    hostes.currentPlayers.forEach(user =>{
+
+                       
+                       
+                     if(user.username == data.username){
+                        
+                         send(user.ws, {method: data.method})
+                     }
+
+                    })
+                    
+                })
+            
+            break;
+            case   "currentCard" : 
+            host.forEach( hostes =>{
+                
+                hostes.currentPlayers.forEach(user =>{
+
+                    
+                    send(user.ws, {method: "currentCard", color: data.color, cardId: data.cardId});
+                
+                })
+                
+            })
+            break;
+            case   "" : 
+            break;
+            case   "" : 
+            break;
+            case   "" : 
+            break;
+        }
+
+
       });
       
      

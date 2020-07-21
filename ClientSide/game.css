@@ -3,10 +3,19 @@
     display: none;
 }
 #gameStart{
-    display: none;
+    display:none;
 }
+
+
 #startButton{
     display: none;
+    margin-top: 40px !important;
+    width: 400px;
+    height: 75px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: 0;
+    background-color: gray;
 }
 #waitTitle{
     color: white;
@@ -35,17 +44,15 @@
     border: 0;
     background-color: gray;
 }
-#cardBoundery{
+#dropZone{
     font-size: 50px;
     margin-top: 20px !important;
     margin-bottom: 20px !important;
     width: 100%;
     height: 150px;
     text-align: center;
-
-opacity: .1;
-
-
+background-color: gray;
+opacity: .5;
 }
 #getcard{
     width: 150px;
@@ -56,12 +63,13 @@ opacity: .1;
     margin-left: 300px !important;
 }
 #cardshand {
-    margin-top:150px !important;
+    margin-top:100px !important;
+    padding-top: 50px;
     display: flex;
     justify-content: center;
     align-content: center;
     place-items: center;
-   
+        
 }
 #cardshand img{
    
